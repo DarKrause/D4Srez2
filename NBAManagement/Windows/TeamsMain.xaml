@@ -1,0 +1,82 @@
+﻿<Window x:Class="NBAManagement.Windows.TeamsMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NBAManagement.Windows"
+        mc:Ignorable="d"
+        Title="TeamsMain" Height="450" Width="800" Icon="/Images/logo.jpg" MinHeight="450" MinWidth="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <Image Source="/Images/logo.jpg" Margin="10 0"/>
+            <TextBlock TextAlignment="Center" FontSize="16" VerticalAlignment="Center">NBA Management System</TextBlock>
+        </StackPanel>
+        <TextBlock FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center">Teams Main</TextBlock>
+        <Button x:Name="BtnBack" HorizontalAlignment="Right" 
+                VerticalAlignment="Center" Margin="10 0"
+                Height="35" Width="70"
+                Content="Back" Click="BtnBack_Click">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="10" BorderBrush="#7F7F7F" BorderThickness="1" Background="#CCCCCC">
+                                    <Grid>
+                                        <Label Content="{TemplateBinding Content}" HorizontalAlignment="Center" Foreground="Black" FontSize="16"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <TabControl x:Name="TabConrolConf" SelectionChanged="TabControl_SelectionChanged" Grid.Row="1" Margin="15" FontSize="16">
+            <TabItem Header="Eastern">
+                <ListView Height="400" Grid.Row="1" x:Name="LViewTeamsWest" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="10,0">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border  CornerRadius="5" Padding="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="330"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Height="80" Width="320"  BorderThickness="1" Margin="5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Border Height="60" Width="60"  BorderThickness="1" Margin="5">
+                                                <Image Source="{Binding DisplayedImage}" Height="90"/>
+                                            </Border>
+                                            <StackPanel Orientation="Vertical" Grid.Column="1" Width="260">
+                                                <TextBlock Margin="5,5,0,0" Width="auto"  Text="{Binding Name}"/>
+                                                
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Western">
+
+            </TabItem>
+        </TabControl>
+
+        <TextBlock Grid.Row="1" VerticalAlignment="Bottom" 
+                   TextAlignment="Center"
+                   Background="#6995C2" Foreground="White">The current season is 2016–2017, and the NBA already has a history of 71 years</TextBlock>
+    </Grid>
+</Window>

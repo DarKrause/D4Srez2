@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище BasketballSystemModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryCode" />
+    </Key>
+    <Property Name="CountryCode" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="CountryName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="30" />
+    <Property Name="FirstName" Type="varchar" MaxLength="30" />
+    <Property Name="Gender" Type="char" MaxLength="1" />
+    <Property Name="Height" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Weight" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="ShirtNumber" Type="varchar" MaxLength="10" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="CountryCode" Type="char" MaxLength="3" />
+    <Property Name="TeamId" Type="int" />
+  </EntityType>
+  <EntityType Name="PositionName">
+    <Key>
+      <PropertyRef Name="PositionId" />
+    </Key>
+    <Property Name="PositionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "BasketballSystem.dbo.PositionOfPlayer" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="PositionOfPlayer">
+          <Property Name="PositionId" Type="int" />
+          <Property Name="PlayerId" Type="int" />
+        </EntityType>-->
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Abbr" Type="varchar" MaxLength="50" />
+    <Property Name="Logo" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__Player__CountryC__3A81B327">
+    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+    <End Role="Player" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryCode" />
+      </Principal>
+      <Dependent Role="Player">
+        <PropertyRef Name="CountryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Player__TeamId__3B75D760">
+    <End Role="Team" Type="Self.Team" Multiplicity="0..1" />
+    <End Role="Player" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Team">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="Player">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "BasketballSystem.dbo.PositionOfPlayer", на которую ссылается связь.
+        <Association Name="FK__PositionO__Playe__403A8C7D" />-->
+  <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "BasketballSystem.dbo.PositionOfPlayer", на которую ссылается связь.
+        <Association Name="FK__PositionO__Posit__3F466844" />-->
+  <EntityContainer Name="Хранилище BasketballSystemModelContainer">
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PositionName" EntityType="Self.PositionName" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Player__CountryC__3A81B327" Association="Self.FK__Player__CountryC__3A81B327">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Player" EntitySet="Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Player__TeamId__3B75D760" Association="Self.FK__Player__TeamId__3B75D760">
+      <End Role="Team" EntitySet="Team" />
+      <End Role="Player" EntitySet="Player" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
